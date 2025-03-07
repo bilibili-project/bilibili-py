@@ -45,14 +45,14 @@ lint = ["ruff>=0.9.9", "pre-commit>=4.1.0"]
 test = ["pytest>=8.3.5", "pytest-cov>=6.0.0"]
 
 [tool.pdm.scripts]
+pre_install = { composite = [
+    "git update-index --skip-worktree ./bilibili/version.py",
+    "pre-commit install",
+] }
+
 lint = "pre-commit run --all-files"
 test = "pytest"
-cov = { shell = """\
-                python -m pytest \
-                    --verbosity=3 \
-                    --cov=bilibili \
-                    tests/
-                """ }
+cov = { shell = "python -m pytest --verbosity=3 --cov=bilibili tests/" }
 
 
 # Ruff ================================================================================
